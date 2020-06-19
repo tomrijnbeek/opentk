@@ -194,6 +194,11 @@ namespace OpenToolkit.Windowing.Common
         Vector2 MouseDelta { get; }
 
         /// <summary>
+        ///     Gets the amount that the mouse wheel has moved since the last frame.
+        /// </summary>
+        Vector2 MouseWheelDelta { get; }
+
+        /// <summary>
         ///     Gets the current state of the mouse as of the last time the window processed events.
         /// </summary>
         MouseState MouseState { get; }

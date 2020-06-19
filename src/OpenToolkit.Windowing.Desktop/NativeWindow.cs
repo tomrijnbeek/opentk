@@ -77,6 +77,9 @@ namespace OpenToolkit.Windowing.Desktop
         public Vector2 MouseDelta { get; private set; }
 
         /// <inheritdoc />
+        public Vector2 MouseWheelDelta { get; private set; }
+
+        /// <inheritdoc />
         public MouseState MouseState => _mouseState;
 
         /// <inheritdoc />
@@ -782,7 +785,11 @@ namespace OpenToolkit.Windowing.Desktop
                 GLFW.SetCursorPosCallback(WindowPtr, _cursorPosCallback);
 
                 _scrollCallback = (window, offsetX, offsetY) =>
+                {
+                    MouseWheelDelta += new Vector2(offsetX, offsetY);
+
                     OnMouseWheel(new MouseWheelEventArgs((float)offsetX, (float)offsetY));
+                };
                 GLFW.SetScrollCallback(WindowPtr, _scrollCallback);
 
                 _dropCallback = (window, count, paths) =>
@@ -879,6 +886,7 @@ namespace OpenToolkit.Windowing.Desktop
             LastMouseState = MouseState;
             LastJoystickStates = JoystickStates;
             MouseDelta = Vector2.Zero;
+            MouseWheelDelta = Vector2.Zero;
 
             if (IsExiting)
             {
